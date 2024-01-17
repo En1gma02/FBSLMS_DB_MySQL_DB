@@ -1,6 +1,6 @@
 CREATE DATABASE fbslms;
 USE fbslms;
-SELECT * FROM played_by;
+
 CREATE TABLE contract(
    c_id varchar(10) PRIMARY KEY,
    c_fees VARCHAR(50),
@@ -22,7 +22,6 @@ CREATE TABLE sponsors(
    sp_type CHAR(1),
    CHECK (sp_type = "i" OR sp_type = "f")
 );
-
 CREATE TABLE inKind(
    sp_name VARCHAR(50), 
    goodsServices VARCHAR(100),

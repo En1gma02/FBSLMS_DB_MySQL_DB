@@ -9,5 +9,3 @@ CREATE TABLE main(
 );
 
 INSERT INTO main VALUES("Dragon","1234",'1'),("Platypus","1234",'1'),("Shark","1234",'1'),("Oyster","1",'0');
-
-SELECT * FROM main;

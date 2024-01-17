@@ -3,13 +3,13 @@ from tkinter import messagebox
 import mysql.connector
 #team, stadium, sponsors, player, matches, contract, league_emp gonna be deleted
 
-data = mysql.connector.connect(user='Dragon', password='1234',host='localhost',database='fbslms')
+data = mysql.connector.connect(user='aaron', password='1234',host='localhost',database='fbslms')
 c = data.cursor()
 
 class deleteMenu():
    def __init__(self):
       def fun(n):
-         nam = ["Team","Stadium","Sponsor","League Employee","Player"]
+         nam = ["Team","Stadium","Sponsor","Employee","Player"]
          tab = ["team","stadium","sponsors","league_employees","player"]
          key = ["t_name","s_name","sp_name","e_name","p_name"]
          def dele():
@@ -18,11 +18,12 @@ class deleteMenu():
                messagebox.showerror(title="Error",message=f"{nam[n]} not selected")
             else:
                try:
-                  c.execute(f'DELETE FROM team WHERE {key[n]} = "{va.get()}";')
+                  c.execute(f'DELETE FROM {tab[n]} WHERE {key[n]} = "{va.get()}";')
                   data.commit()
                   self.win.destroy()
                   messagebox.showinfo(title="Succesfull",message=f"{nam[n]} {va.get()} was sucessfully deleted")
                except:
+                  print(nam[n],va.get(),key[n],tab[n])
                   data.rollback()
                   self.win.destroy()
                   messagebox.showerror(title="Error",message=f"The {nam[n]} could not be deleted")
@@ -32,10 +33,11 @@ class deleteMenu():
             li.append(str(i[0]))
          self.win = Tk()
          va = StringVar(self.win, value="None")
-         self.win.title(f"{nam[n]} Deletion")
-         l = Label(self.win,text=f"Select a {nam[n]}: ").pack()
-         o = OptionMenu(self.win, va, *li).pack()
-         b = Button(self.win,text="Delete",command=dele).pack()
+         self.win.title("")
+         self.win.geometry("220x100")
+         l = Label(self.win,text=f"Delete {nam[n]}: ",font=('Arial',11)).place(x=7,y=10)
+         o = OptionMenu(self.win, va, *li).place(x=125,y=6)
+         b = Button(self.win,text="Delete",font=('Arial',11),command=dele).place(x=70,y=50)
          self.win.mainloop()
       def con_fun():
          def dele():
@@ -60,21 +62,22 @@ class deleteMenu():
          for i in c.fetchall():
             li.append(i[1])
          self.win = Tk()
+         self.win.geometry("200x100")
          va = StringVar(self.win, value="None")
-         self.win.title(f"Contract Deletion")
-         l = Label(self.win,text=f"Select player whose contract you want to delete: ").pack()
-         o = OptionMenu(self.win, va, *li).pack()
-         b = Button(self.win,text="Delete",command=dele).pack()
+         self.win.title("")
+         l = Label(self.win,text="Delete Contract: ",font=('Arial',11)).place(x=10,y=10)
+         o = OptionMenu(self.win, va, *li).place(x=120,y=6)
+         b = Button(self.win,text="Delete",font=('Arial',11),command=dele).place(x=60,y=50)
          self.win.mainloop()
       self.root = Tk()
-      self.root.title("Delete Window")
-      self.label = Label(self.root,text="Select relation to be deleted").pack()
-      self.team_but = Button(self.root,text = "Team",command=lambda x=0: fun(x)).pack()
-      self.stad_but = Button(self.root,text = "Stadium",command=lambda x=1: fun(x)).pack()
-      self.spon_but = Button(self.root,text = "Sponsor",command=lambda x=2: fun(x)).pack()
-      self.emp_but = Button(self.root,text = "League Employee",command=lambda x=3: fun(x)).pack()
-      self.emp_pla = Button(self.root,text = "Player",command=lambda x=4: fun(x)).pack()
-      self.con_but = Button(self.root,text = "Contract",command=con_fun).pack()
+      self.root.geometry("300x350")
+      self.root.title("Delete")
+      self.team_but = Button(self.root,text = "Team",font=('Arial',13),command=lambda x=0: fun(x)).pack(pady=10)
+      self.stad_but = Button(self.root,text = "Stadium",font=('Arial',13),command=lambda x=1: fun(x)).pack(pady=10)
+      self.spon_but = Button(self.root,text = "Sponsor",font=('Arial',13),command=lambda x=2: fun(x)).pack(pady=10)
+      self.emp_but = Button(self.root,text = "League Employee",font=('Arial',13),command=lambda x=3: fun(x)).pack(pady=10)
+      self.emp_pla = Button(self.root,text = "Player",font=('Arial',13),command=lambda x=4: fun(x)).pack(pady=10)
+      self.con_but = Button(self.root,text = "Contract",font=('Arial',13),command=con_fun).pack(pady=10)
       self.root.mainloop()
       
 

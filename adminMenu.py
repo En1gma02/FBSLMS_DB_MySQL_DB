@@ -23,11 +23,12 @@ class adminMenu:
          teamMenu()
          adminMenu()
       self.root = Tk()
-      self.root.title("Admin Window")
-      self.up_but = Button(self.root,text = "Update",command=up_call).pack()
-      self.del_but = Button(self.root,text = "Delete",command=del_call).pack()
-      self.in_but = Button(self.root,text = "Insert",command=in_call).pack()
-      self.fan = Button(self.root,text="View as Fan",command=fan).pack()
+      self.root.geometry("270x200")
+      self.root.title("Admin Commands")
+      self.up_but = Button(self.root,font=('Arial',12),text = "Update Command",command=up_call).place(x=60,y=20)
+      self.del_but = Button(self.root,font=('Arial',12),text = "Delete Command",command=del_call).place(x=61,y=60)
+      self.in_but = Button(self.root,font=('Arial',12),text = "Insert Command",command=in_call).place(x=62,y=100)
+      self.fan = Button(self.root,font=('Arial',12),text="View as a Fan",command=fan).place(x=70,y=140)
       self.root.mainloop()
      
 if __name__=="__main__":
